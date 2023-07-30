@@ -22,7 +22,6 @@
     "dotenv": "^16.3.1",
     "firebase": "^10.1.0",
     "odometer": "^0.4.8",
-    "solid-js": "^1.7.6",
-    "solid-meta": "^0.28.1"
+    "solid-js": "^1.7.6"
   }
 }
