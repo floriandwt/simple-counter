@@ -1,16 +1,23 @@
 import Odometer from "odometer";
-import Preset from "../config/counter.preset.json";
 import "odometer/themes/odometer-theme-default.css";
-import { createEffect, createSignal, onCleanup } from "solid-js";
+import { createEffect, createSignal, onMount } from "solid-js";
+import { updateScore } from "../App";
 
-export default function Edit() {
+export default function Edit({ Preset }) {
   let number;
   let [value, setValue] = createSignal(0);
 
-  // Initialize Odometer once on component mount
   let odometerInstance;
 
-  // Update Odometer value whenever value signal changes
+  onMount(() => {
+    localStorage.getItem("simple-counter-user") &&
+      setValue(
+        Preset.participants.find(
+          (p) => p.name === localStorage.getItem("simple-counter-user")
+        ).score
+      );
+  });
+
   createEffect(() => {
     if (odometerInstance) {
       odometerInstance.update(value());
@@ -36,18 +43,33 @@ export default function Edit() {
             <button
               class="text-5xl bg-white rounded-full w-14 h-14 flex items-center justify-center text-black active:scale-95 transition-all"
               onClick={() => {
-                if (value() > 0) setValue(value() - 1);
+                if (value() === 0) return;
+                const updatedValue = value() - 1;
+                setValue(updatedValue);
+                updateScore(
+                  localStorage.getItem("simple-counter-user"),
+                  updatedValue
+                );
               }}
             >
               -
             </button>
-            <div ref={number} id="odometer" class="font-sans text-8xl">
+            <div
+              ref={number}
+              id="odometer"
+              class="font-sans text-8xl tabular-nums"
+            >
               {value()}
             </div>
             <button
               class="text-5xl bg-white rounded-full w-14 h-14 flex items-center justify-center text-black active:scale-95 transition-all"
               onClick={() => {
-                setValue(value() + 1);
+                const updatedValue = value() + 1;
+                setValue(updatedValue);
+                updateScore(
+                  localStorage.getItem("simple-counter-user"),
+                  updatedValue
+                );
               }}
             >
               +

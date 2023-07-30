@@ -1,7 +1,10 @@
 import { For } from "solid-js";
-import Preset from "../config/counter.preset.json";
 
-export default function Start() {
+export default function Start({ Preset, update }) {
+  const sortedParticipants = Preset.participants.sort(
+    (a, b) => b.score - a.score
+  );
+
   return (
     <main class="w-screen h-screen font-sans bg-black text-white">
       <div class="w-[90%] mx-auto py-20 h-screen flex flex-col justify-between">
@@ -10,7 +13,7 @@ export default function Start() {
           <p class="text-center text-xl text-zinc-400">{Preset.description}</p>
           <div class="mt-16">
             <p class="text-lg mb-8">Teilnehmer:</p>
-            <For each={Preset.participants}>
+            <For each={sortedParticipants}>
               {(participant) => (
                 <div class="flex items-center justify-between mt-2 text-2xl mb-4">
                   <p>{participant.name}</p>
@@ -31,6 +34,16 @@ export default function Start() {
           </div>
         </div>
         <div class="fixed bottom-8 w-[90%] max-w-xs left-[50%] translate-x-[-50%]">
+          <Show when={update()}>
+            <button
+              onClick={() => {
+                window.location.reload();
+              }}
+              class="w-full rounded-2xl text-lg mb-4 bg-gradient-to-t py-4 from-green-600 to-green-500 border border-green-500 active:scale-95 transition-all"
+            >
+              Neu laden
+            </button>
+          </Show>
           <button
             onClick={() => {
               if (!localStorage.getItem("simple-counter-user")) {

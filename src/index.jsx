@@ -3,9 +3,10 @@ import { render } from "solid-js/web";
 import { Router, Route, Routes } from "@solidjs/router";
 
 import "./index.css";
-import Start from "./pages/Start";
+import App from "./App";
 import Login from "./pages/Login";
 import Edit from "./pages/Edit";
+import Start from "./pages/Start";
 
 const root = document.getElementById("root");
 
@@ -19,9 +20,9 @@ render(
   () => (
     <Router>
       <Routes>
-        <Route path="/" component={Start} />
-        <Route path="/login" component={Login} />
-        <Route path="/edit" component={Edit} />
+        <Route path="/" component={<App Page={Start} />} />
+        <Route path="/login" component={<App Page={Login} />} />
+        <Route path="/edit" component={<App Page={Edit} />} />
         <Route
           path="*"
           element={

@@ -1,6 +1,4 @@
-import Preset from "../config/counter.preset.json";
-
-export default function Login() {
+export default function Login({ Preset }) {
   let password;
   let user;
 
