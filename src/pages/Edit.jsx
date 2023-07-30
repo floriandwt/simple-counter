@@ -1,6 +1,30 @@
+import Odometer from "odometer";
 import Preset from "../config/counter.preset.json";
+import "odometer/themes/odometer-theme-default.css";
+import { createEffect, createSignal, onCleanup } from "solid-js";
 
 export default function Edit() {
+  let number;
+  let [value, setValue] = createSignal(0);
+
+  // Initialize Odometer once on component mount
+  let odometerInstance;
+
+  // Update Odometer value whenever value signal changes
+  createEffect(() => {
+    if (odometerInstance) {
+      odometerInstance.update(value());
+    } else {
+      odometerInstance = new Odometer({
+        el: number,
+        value: value(),
+        theme: "default",
+        format: "",
+        duration: 10,
+      });
+    }
+  });
+
   return (
     <main class="w-screen h-screen font-sans bg-black text-white">
       <div class="w-[90%] mx-auto py-20 h-screen flex flex-col justify-between">
@@ -8,6 +32,30 @@ export default function Edit() {
           <h1 class="text-center text-3xl mb-16">
             {localStorage.getItem("simple-counter-user")}
           </h1>
+          <div class="w-full pt-8 pb-4 flex items-center justify-between">
+            <button
+              class="text-5xl bg-white rounded-full w-14 h-14 flex items-center justify-center text-black active:scale-95 transition-all"
+              onClick={() => {
+                if (value() > 0) setValue(value() - 1);
+              }}
+            >
+              -
+            </button>
+            <div ref={number} id="odometer" class="font-sans text-8xl">
+              {value()}
+            </div>
+            <button
+              class="text-5xl bg-white rounded-full w-14 h-14 flex items-center justify-center text-black active:scale-95 transition-all"
+              onClick={() => {
+                setValue(value() + 1);
+              }}
+            >
+              +
+            </button>
+          </div>
+          <p class="text-4xl text-center max-[320px]:hidden">
+            x {Preset.unit.symbol} {Preset.unit.name}
+          </p>
         </div>
         <div class="fixed bottom-8 w-[90%] max-w-xs left-[50%] translate-x-[-50%]">
           <button
