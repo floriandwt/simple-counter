@@ -1,6 +1,9 @@
 import { createEffect, createSignal } from "solid-js";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set, get } from "firebase/database";
+import Login from "./pages/Login";
+import Edit from "./pages/Edit";
+import Start from "./pages/Start";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -32,19 +35,22 @@ export const updateScore = async (name, score) => {
 };
 
 export default function App({ Page }) {
+  const [path, setPath] = createSignal(window.location.pathname);
   const [config, setConfig] = createSignal(undefined);
   const [newVal, setNewVal] = createSignal(false);
   const configuration = ref(database, "configuration");
 
-  onValue(configuration, (snapshot) => {
-    if (
-      config() !== undefined &&
-      config().participants !== snapshot.val().participants
-    ) {
-      setNewVal(true);
-    }
+  createEffect(() => {
+    onValue(configuration, (snapshot) => {
+      if (
+        config() !== undefined &&
+        config().participants !== snapshot.val().participants
+      ) {
+        setNewVal(true);
+      }
 
-    setConfig(snapshot.val());
+      setConfig(snapshot.val());
+    });
   });
 
   createEffect(() => {
@@ -63,7 +69,9 @@ export default function App({ Page }) {
           </div>
         }
       >
-        <Page Preset={config()} update={newVal} />
+        {path() === "/" && <Start Preset={config()} update={newVal} />}
+        {path() === "/login" && <Login Preset={config()} />}
+        {path() === "/edit" && <Edit Preset={config()} />}
       </Show>
     </main>
   );
