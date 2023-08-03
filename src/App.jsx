@@ -1,9 +1,9 @@
 import { createEffect, createSignal } from "solid-js";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set, get } from "firebase/database";
-import Login from "./pages/Login";
-import Edit from "./pages/Edit";
-import Start from "./pages/Start";
+import Login from "./Login";
+import Edit from "./Edit";
+import Start from "./Start";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
