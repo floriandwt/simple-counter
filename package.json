@@ -1,5 +1,5 @@
 {
-  "name": "vite-template-solid",
+  "name": "simple-counter-demo",
   "version": "0.0.0",
   "description": "",
   "scripts": {
@@ -15,6 +15,7 @@
     "solid-devtools": "^0.27.3",
     "tailwindcss": "^3.3.3",
     "vite": "^4.3.9",
+    "vite-plugin-pages": "^0.18.2",
     "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "dotenv": "^16.3.1",
     "firebase": "^10.1.0",
     "odometer": "^0.4.8",
+    "solid-app-router": "^0.4.2",
     "solid-js": "^1.7.6"
   }
 }
