@@ -21,19 +21,20 @@ export default function Edit() {
 
   let odometerInstance;
 
-  onMount(() => {
-    localStorage.getItem("simple-counter-user") &&
+  createEffect(() => {
+    if (localStorage.getItem("simple-counter-user") && config() !== undefined) {
       setValue(
         config().participants.find(
           (p) => p.name === localStorage.getItem("simple-counter-user")
         ).score
       );
+    }
   });
 
   createEffect(() => {
     if (odometerInstance) {
       odometerInstance.update(value());
-    } else {
+    } else if (config() !== undefined && number !== undefined) {
       odometerInstance = new Odometer({
         el: number,
         value: value(),

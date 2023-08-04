@@ -31,22 +31,12 @@ export const updateScore = async (name, score) => {
   }
 };
 
-
 export default function App() {
-  const [path, setPath] = createSignal(window.location.pathname);
-  const [newVal, setNewVal] = createSignal(false);
   const configuration = ref(database, "configuration");
   const [config, setConfig] = createSignal(undefined);
 
   createEffect(() => {
     onValue(configuration, (snapshot) => {
-      if (
-        config() !== undefined &&
-        config().participants !== snapshot.val().participants
-      ) {
-        setNewVal(true);
-      }
-
       setConfig(snapshot.val());
     });
   });
@@ -91,16 +81,6 @@ export default function App() {
             </div>
           </div>
           <div class="fixed bottom-8 w-[90%] max-w-xs left-[50%] translate-x-[-50%]">
-            <Show when={newVal()}>
-              <button
-                onClick={() => {
-                  window.location.reload();
-                }}
-                class="w-full rounded-2xl text-lg mb-4 bg-gradient-to-t py-4 from-green-600 to-green-500 border border-green-500 active:scale-95 transition-all"
-              >
-                Neu laden
-              </button>
-            </Show>
             <button
               onClick={() => {
                 if (!localStorage.getItem("simple-counter-user")) {
