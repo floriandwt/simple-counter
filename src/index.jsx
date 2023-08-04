@@ -5,6 +5,8 @@ import { Router, Route, Routes } from "@solidjs/router";
 
 import "./index.css";
 import App from "./App";
+import Login from "./Login";
+import Edit from "./Edit";
 
 const root = document.getElementById("root");
 
@@ -19,8 +21,8 @@ render(
     <Router base="/">
       <Routes>  
         <Route path="/" component={App} />
-        <Route path="/login" component={App} />
-        <Route path="/edit" component={App} />
+        <Route path="/login" component={Login} />
+        <Route path="/edit" component={Edit} />
         <Route
           path="*"
           element={
