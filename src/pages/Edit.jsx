@@ -1,8 +1,8 @@
 import Odometer from "odometer";
 import "odometer/themes/odometer-theme-default.css";
 import { createEffect, createSignal, onMount } from "solid-js";
-import { updateScore } from "./App";
-import { database } from "./App";
+import { updateScore } from "../App";
+import { database } from "../App";
 import { ref, get } from "firebase/database";
 
 export default function Edit() {
