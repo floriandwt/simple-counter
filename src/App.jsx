@@ -34,7 +34,7 @@ export const updateScore = async (name, score) => {
   }
 };
 
-export default function App({ Page }) {
+export default function App() {
   const [path, setPath] = createSignal(window.location.pathname);
   const [config, setConfig] = createSignal(undefined);
   const [newVal, setNewVal] = createSignal(false);
