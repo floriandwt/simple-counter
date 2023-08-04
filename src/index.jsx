@@ -1,7 +1,7 @@
 import { render } from "solid-js/web";
 import App from "./App";
-import Login from "./Login";
-import Edit from "./Edit";
+import Login from "./pages/Login";
+import Edit from "./pages/Edit";
 import { Router, Route, Routes } from "@solidjs/router";
 import "./index.css";
 

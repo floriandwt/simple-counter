@@ -1,5 +1,5 @@
 import { Show, createSignal, createEffect } from "solid-js";
-import { database } from "./App";
+import { database } from "../App";
 import { ref, get } from "firebase/database";
 
 export default function Login() {
